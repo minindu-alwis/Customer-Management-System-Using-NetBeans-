@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import CustomerController.CustomerController;
+import List.List;
+import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hp
@@ -71,7 +76,7 @@ public class ViewCustomerForm extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 9, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(185, 185, 185)
+                .addGap(189, 189, 189)
                 .addComponent(jButtonrefresh)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -82,16 +87,28 @@ public class ViewCustomerForm extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonrefresh)
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonrefreshActionPerformed
-        // TODO add your handling code here:
+      
+        try{
+            
+					List customerList=CustomerController.getAllCustomer();
+                                          DefaultTableModel dtm=(DefaultTableModel)jTable1.getModel();
+                                          dtm.setRowCount(0);
+					for(int i=0; i<customerList.size();i++){ 
+						Object[] rowData={customerList.get(i).getId(),customerList.get(i).getName(),customerList.get(i).getAddress(),customerList.get(i).getSalary()};
+						dtm.addRow(rowData);
+					}
+				}catch(IOException ex){
+					
+				}        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonrefreshActionPerformed
 
    

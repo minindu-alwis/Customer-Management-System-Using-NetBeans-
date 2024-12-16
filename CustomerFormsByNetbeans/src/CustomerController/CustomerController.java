@@ -122,6 +122,22 @@ public class CustomerController {
 				
 		}
 	return false;
-}
+    }
+   
+   public static List getAllCustomer()throws IOException{
+		BufferedReader br=new BufferedReader(new FileReader("Customer.txt"));
+		List customerlist=new List();
+		String line=br.readLine();
+		while(line!=null){
+			String[] rowData=line.split(",");
+			Customer customer=new Customer(rowData[0],rowData[1],rowData[2],Double.parseDouble(rowData[3]));
+			customerlist.add(customer);
+			line=br.readLine();
+		}	
+		return customerlist;
+		
+		}
+
+
     
 }

@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import Customer.Customer;
+import CustomerController.CustomerController;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
@@ -149,7 +154,21 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonupdateActionPerformed
-        // TODO add your handling code here:
+    String id=jTextFieldid.getText();
+				String name=jTextFieldidname.getText();
+				String address=jTextFieldidaddress.getText();
+				double salary=Double.parseDouble(jTextFieldidsalary.getText());
+				Customer customer=new Customer(id,name,address,salary);
+				try{
+					boolean isUpdate=CustomerController.updateCustomer(customer);
+					if(isUpdate){
+						JOptionPane.showMessageDialog(null,"Update success");
+					}else{
+						JOptionPane.showMessageDialog(null,"Update fail");
+					}
+				}catch(IOException ex){
+					
+				}        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonupdateActionPerformed
 
     private void jButtoncancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncancleActionPerformed
@@ -157,7 +176,18 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtoncancleActionPerformed
 
     private void jTextFieldidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldidActionPerformed
-        // TODO add your handling code here:
+         try{
+					Customer customer=CustomerController.searchCustomer(jTextFieldid.getText());
+					if(customer!=null){
+						jTextFieldidname.setText(customer.getName());
+						jTextFieldidaddress.setText(customer.getAddress());
+						jTextFieldidsalary.setText(""+customer.getSalary()); 
+					}else{
+						JOptionPane.showMessageDialog(null,"Customer not found...");
+					}		
+				}catch(IOException ex){
+				
+				}        // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldidActionPerformed
 
     private void jTextFieldidsalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldidsalaryActionPerformed

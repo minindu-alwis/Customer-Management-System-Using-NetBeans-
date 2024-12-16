@@ -91,5 +91,37 @@ public class CustomerController {
 		
 		}
 
+   
+   public static boolean updateCustomer(Customer customer)throws IOException{
+		BufferedReader br=new BufferedReader(new FileReader("Customer.txt"));
+		List customerlist=new List();
+		String line=br.readLine();
+		while(line!=null){
+			String[] rowData=line.split(",");
+			Customer c1=new Customer(rowData[0],rowData[1],rowData[2],Double.parseDouble(rowData[3]));
+			customerlist.add(c1);
+			line=br.readLine();
+		}	
+		
+		int index=customerlist.search(customer);
+		if(index!=-1){
+				boolean isUpdate=customerlist.set(index,customer);
+				
+				if(isUpdate){
+					
+				FileWriter fw=new FileWriter("Customer.txt");
+				for(int i=0;i<customerlist.size();i++){
+					
+					Customer c1=customerlist.get(i);
+					fw.write(c1.toString()+"\n");
+					
+					}
+					fw.close();
+					return isUpdate;
+				}
+				
+		}
+	return false;
+}
     
 }
